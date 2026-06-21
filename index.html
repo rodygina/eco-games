@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Эко-Игротека | Цифровая методическая копилка</title>
+    <!-- Подключаем современные шрифты и иконки -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Базовые настройки и переменные */
+        :root {
+            --primary-color: #2e7d32;
+            --secondary-color: #4caf50;
+            --accent-color: #ffb300;
+            --bg-color: #f8fcf8;
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 30px rgba(46, 125, 50, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Навигация */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Главный экран (Hero Section) */
+        .hero {
+            margin-top: 60px;
+            background: linear-gradient(135deg, rgba(46,125,50,0.9) 0%, rgba(76,175,80,0.9) 100%), url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            color: white;
+            padding: 120px 5% 100px;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        /* Блок Методологии */
+        .methodology {
+            padding: 60px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            background: var(--accent-color);
+            bottom: -10px;
+            left: 25%;
+            border-radius: 2px;
+        }
+
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .method-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 5px solid var(--secondary-color);
+        }
+
+        .method-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .method-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        /* Каталог игр и Фильтры */
+        .games-section {
+            padding: 60px 5%;
+            background: #fff;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            padding: 10px 25px;
+            border: 2px solid var(--primary-color);
+            background: transparent;
+            color: var(--primary-color);
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(46, 125, 50, 0.15);
+        }
+
+        .game-img {
+            height: 180px;
+            background: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+        }
+
+        .game-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-tag {
+            align-self: flex-start;
+            background: #e8f5e9;
+            color: var(--primary-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .game-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .game-desc {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .read-more-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .read-more-btn:hover {
+            background: #1b5e20;
+        }
+
+        /* Модальные окна (Popups) */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 30px;
+            color: #aaa;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .close-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .modal-body h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .modal-body h4 {
+            margin: 20px 0 10px;
+            color: var(--text-color);
+        }
+
+        .modal-body ul, .modal-body ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .modal-body li {
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Подвал */
+        footer {
+            background: var(--text-color);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        /* Адаптив для мобильных */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+            .hero { padding: 100px 5% 60px; clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%); }
+            .modal-content { padding: 25px; }
+            .filter-btn { padding: 8px 16px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Навигация -->
+    <nav>
+        <div class="logo"><i class="fa-solid fa-leaf"></i> Эко-Игротека</div>
+    </nav>
+
+    <!-- Главный экран -->
+    <header class="hero">
+        <h1>Экология через Игру</h1>
+        <p>Инновационный электронный образовательный ресурс (ЭОР) для учителей начальных классов. Практическая разработка в рамках ВКР, направленная на формирование экологической культуры по стандартам ФГОС НОО.</p>
+        <button class="filter-btn" style="background: var(--accent-color); border: none; color: #333; font-size: 1.1rem; padding: 15px 35px;" onclick="document.getElementById('catalog').scrollIntoView({behavior: 'smooth'})">Открыть копилку игр</button>
+    </header>
+
+    <!-- Методология -->
+    <section class="methodology">
+        <h2 class="section-title">Педагогическая модель</h2>
+        <p style="color: #666; max-width: 800px; margin: 0 auto;">Наш комплекс построен на основе системно-деятельностного подхода. Каждая игра направлена на формирование конкретного компонента экологической воспитанности младшего школьника.</p>
+        
+        <div class="method-grid">
+            <div class="method-card">
+                <i class="fa-solid fa-brain"></i>
+                <h3>Когнитивный</h3>
+                <p>Игры на установление причинно-следственных связей в природе, понимание законов экосистемы и последствий деятельности человека.</p>
+            </div>
+            <div class="method-card">
+                <i class="fa-solid fa-heart"></i>
+                <h3>Ценностно-эмоциональный</h3>
+                <p>Сюжетно-ролевые форматы, формирующие эмпатию к живым существам и осознание природы как самостоятельной ценности.</p>
+            </div>
+            <div class="method-card">
+                <i class="fa-solid fa-person-walking-arrow-right"></i>
+                <h3>Поведенческий</h3>
+                <p>Практико-ориентированные кейсы для отработки навыков коммуникации, экологических привычек и преодоления социальной пассивности.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Каталог игр -->
+    <section class="games-section" id="catalog">
+        <h2 class="section-title" style="text-align: center; width: 100%;">Каталог игровых технологий</h2>
+        
+        <!-- Фильтры -->
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterGames('all')">Все игры</button>
+            <button class="filter-btn" onclick="filterGames('behavior')">Поведенческие</button>
+            <button class="filter-btn" onclick="filterGames('cognitive')">Когнитивные</button>
+            <button class="filter-btn" onclick="filterGames('roleplay')">Сюжетно-ролевые</button>
+        </div>
+
+        <div class="games-grid">
+            
+            <!-- Игра 1 -->
+            <div class="game-card" data-category="behavior">
+                <div class="game-img" style="background: #4caf50;"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="game-content">
+                    <span class="game-tag">Поведенческий компонент</span>
+                    <h3 class="game-title">Экологический патруль</h3>
+                    <p class="game-desc">Групповая игра с кейсами. Отработка навыков безопасного вмешательства и коммуникации при выявлении экологических нарушений.</p>
+                    <button class="read-more-btn" onclick="openModal('modal-patrol')">Открыть сценарий</button>
+                </div>
+            </div>
+
+            <!-- Игра 2 -->
+            <div class="game-card" data-category="cognitive">
+                <div class="game-img" style="background: #2196f3;"><i class="fa-solid fa-network-wired"></i></div>
+                <div class="game-content">
+                    <span class="game-tag">Когнитивный компонент</span>
+                    <h3 class="game-title">Спаси экосистему</h3>
+                    <p class="game-desc">Аналитическая игра на выявление эффекта «домино» в природе. Учимся видеть скрытые последствия деятельности человека.</p>
+                    <button class="read-more-btn" onclick="openModal('modal-eco')">Открыть сценарий</button>
+                </div>
+            </div>
+
+            <!-- Игра 3 -->
+            <div class="game-card" data-category="roleplay">
+                <div class="game-img" style="background: #ff9800;"><i class="fa-solid fa-gavel"></i></div>
+                <div class="game-content">
+                    <span class="game-tag">Ценностный компонент</span>
+                    <h3 class="game-title">Экологический суд</h3>
+                    <p class="game-desc">Сюжетно-ролевая игра. Рассмотрение конфликтов между экономической выгодой и защитой природы через дебаты.</p>
+                    <button class="read-more-btn" onclick="openModal('modal-court')">Открыть сценарий</button>
+                </div>
+            </div>
+
+            <!-- Игра 4 -->
+            <div class="game-card" data-category="roleplay">
+                <div class="game-img" style="background: #e91e63;"><i class="fa-solid fa-map-location-dot"></i></div>
+                <div class="game-content">
+                    <span class="game-tag">Комплексный компонент</span>
+                    <h3 class="game-title">Экологический квест</h3>
+                    <p class="game-desc">Командная игра по станциям: от интеллектуальных загадок до практической сортировки мусора и создания плакатов.</p>
+                    <button class="read-more-btn" onclick="openModal('modal-quest')">Открыть сценарий</button>
+                </div>
+            </div>
+
+            <!-- Игра 5 -->
+            <div class="game-card" data-category="cognitive">
+                <div class="game-img" style="background: #9c27b0;"><i class="fa-solid fa-lightbulb"></i></div>
+                <div class="game-content">
+                    <span class="game-tag">Когнитивный компонент</span>
+                    <h3 class="game-title">Брейн-ринг</h3>
+                    <p class="game-desc">Интеллектуальное соревнование команд. Закрепление знаний об экологии региона и правилах поведения в лесу.</p>
+                    <button class="read-more-btn" onclick="openModal('modal-brain')">Открыть сценарий</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ПОДВАЛ -->
+    <footer>
+        <h2>Выпускная квалификационная работа</h2>
+        <p>Специальность 44.02.02 Преподавание в начальных классах. 2026 г.</p>
+    </footer>
+
+    <!-- ================= МОДАЛЬНЫЕ ОКНА С ТЕКСТАМИ ИГР ================= -->
+
+    <!-- Модалка 1: Патруль -->
+    <div class="modal-overlay" id="modal-patrol">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-patrol')">&times;</span>
+            <div class="modal-body">
+                <span class="game-tag">Групповая работа</span>
+                <h2>Дидактическая игра «Экологический патруль»</h2>
+                <p><strong>Цель:</strong> отработка навыков экологически ответственного поведения и коммуникации.</p>
+                <h4>Карточки-ситуации для малых групп:</h4>
+                <ul>
+                    <li><strong>Карточка 1 (Загрязнение территории):</strong> Вы гуляете в парке и замечаете, что люди бросают мусор на землю рядом с пустой урной. <i>Задача: выбрать вариант действий (убрать самому, сделать замечание, сообщить администрации) и разыграть диалог с нарушителем.</i></li>
+                    <li><strong>Карточка 2 (Повреждение растений):</strong> Посетители парка вырывают редкие цветы для букета. <i>Задача: отработать алгоритм: не вмешиваться агрессивно → вежливо объяснить ценность растения → при необходимости сообщить охране.</i></li>
+                    <li><strong>Карточка 3 (Нарушение правил в лесу):</strong> Ваши друзья на пикнике собираются разжечь костер на сухой траве и хотят оставить мусор. <i>Задача: отработать навык противостояния давлению сверстников, аргументировать правила безопасности.</i></li>
+                    <li><strong>Карточка 4 (Угроза животным):</strong> Вы видите, как кто-то ради забавы бросает камни в уток на пруду. <i>Задача: сформировать чувство эмпатии, отработать безопасное вмешательство и зов на помощь взрослых.</i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модалка 2: Экосистема -->
+    <div class="modal-overlay" id="modal-eco">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-eco')">&times;</span>
+            <div class="modal-body">
+                <span class="game-tag">Аналитическая работа</span>
+                <h2>Игра «Спаси экосистему»</h2>
+                <p><strong>Цель:</strong> формирование системного понимания связей в природе. Учащиеся должны сопоставить действие человека с глобальным экологическим последствием, объяснив логическую цепочку.</p>
+                <table>
+                    <tr>
+                        <th>Первичное действие человека</th>
+                        <th>Экологические последствия (эффект «домино»)</th>
+                    </tr>
+                    <tr>
+                        <td>Вырубка лесов под застройку</td>
+                        <td>Уничтожение мест обитания животных, эрозия почвы, снижение кислорода</td>
+                    </tr>
+                    <tr>
+                        <td>Сброс химических отходов фабрики</td>
+                        <td>Отравление водоемов, гибель рыб, попадание токсинов в пищевую цепь человека</td>
+                    </tr>
+                    <tr>
+                        <td>Использование пестицидов на полях</td>
+                        <td>Гибель полезных насекомых (пчел), отравление грунтовых вод</td>
+                    </tr>
+                    <tr>
+                        <td>Увеличение потребления пластика</td>
+                        <td>Образование неразлагаемых свалок, гибель морских животных от микропластика</td>
+                    </tr>
+                    <tr>
+                        <td>Оставленный в лесу стеклянный мусор</td>
+                        <td>Эффект линзы в солнечный день, возникновение лесного пожара</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модалка 3: Суд -->
+    <div class="modal-overlay" id="modal-court">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-court')">&times;</span>
+            <div class="modal-body">
+                <span class="game-tag">Сюжетно-ролевая игра</span>
+                <h2>Игра «Экологический суд»</h2>
+                <p><strong>Цель:</strong> формирование ценностного отношения к природе, развитие навыков экологической аргументации и моральной ответственности.</p>
+                <h4>Распределение ролей:</h4>
+                <ul>
+                    <li><strong>Судья:</strong> ведет заседание, следит за порядком.</li>
+                    <li><strong>Прокурор:</strong> обвиняет, защищает природу.</li>
+                    <li><strong>Защитник:</strong> ищет экономические или социальные оправдания.</li>
+                    <li><strong>Эксперт-эколог:</strong> дает научную оценку последствиям.</li>
+                    <li><strong>Свидетели:</strong> местные жители, лесники.</li>
+                </ul>
+                <h4>Пример разыгрываемого кейса: «Вырубка леса для постройки ТЦ»</h4>
+                <p><strong>Свидетель (лесник):</strong> Белки, птицы и ежи потеряют свои дома. Лес исчезнет совсем.</p>
+                <p><strong>Защитник:</strong> Магазин создаст рабочие места и принесёт доход для деревни, людям будет удобно покупать продукты.</p>
+                <p><strong>Эколог:</strong> Деревья очищают воздух, сохраняют почву и воду. Их вырубка приведёт к эрозии и засухам. Экономическая выгода не покроет затрат на здоровье.</p>
+                <p><strong>Судья:</strong> Проводит коллективное голосование класса за оптимальное решение (компромисс).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модалка 4: Квест -->
+    <div class="modal-overlay" id="modal-quest">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-quest')">&times;</span>
+            <div class="modal-body">
+                <span class="game-tag">Командная работа</span>
+                <h2>Экологический квест по станциям</h2>
+                <p><strong>Цель:</strong> командное решение практических экологических задач в игровой форме.</p>
+                <h4>Алгоритм прохождения станций:</h4>
+                <ol>
+                    <li><strong>Станция «Интеллектуальная»:</strong> Команды отвечают на вопросы о животных, растениях и экосистемах своего региона, разгадывают загадки о природе.</li>
+                    <li><strong>Станция «Сортировочная»:</strong> Практическое задание. Командам выдаются карточки с видами мусора (бумага, стекло, пластик, батарейки). Задача — правильно распределить их по мусорным контейнерам.</li>
+                    <li><strong>Станция «Творческая»:</strong> Создание агитационного плаката на тему «Сохраним лес!» или «Не мусорить!» за ограниченное время (10 минут).</li>
+                    <li><strong>Станция «Рефлексивная»:</strong> Команды собираются вместе, делятся результатами, презентуют плакаты и обсуждают, что нового они узнали о защите природы. Формирование личных «эко-шагов».</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модалка 5: Брейн-ринг -->
+    <div class="modal-overlay" id="modal-brain">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-brain')">&times;</span>
+            <div class="modal-body">
+                <span class="game-tag">Интеллектуальная игра</span>
+                <h2>Сценарий «Экологический брейн-ринг»</h2>
+                <p><strong>Формат:</strong> 5 команд, игра за игровыми столами. Ведущие — Учитель и ученик в костюме «Земля».</p>
+                
+                <h4>Вступление (Мотивация)</h4>
+                <p><strong>Ученик «Земля» (держит яблоко):</strong> Представим себе, что яблоко — это Земля. Три четверти — вода. Оставшуюся четверть суши делим на части: там, где слишком холодно; там, где города и дороги. И лишь крошечная часть — это земля, занятая естественной природой. Наша задача её сберечь!</p>
+
+                <h4>Примеры вопросов (Тур 1 - 3):</h4>
+                <ul>
+                    <li><strong>Вопрос:</strong> Какие строительные материалы в квартирах могут быть опасны для здоровья?<br>
+                    <i>Ответ: асбестовые наполнители, свинцовые красители, дешевые ДСП.</i></li>
+                    <li><strong>Вопрос:</strong> Как можно сохранить жизнь одного взрослого дерева?<br>
+                    <i>Ответ: собрать и сдать 60 кг макулатуры.</i></li>
+                    <li><strong>Вопрос:</strong> Почему в лесу весной нельзя поднимать шум и включать музыку?<br>
+                    <i>Ответ: Птицы и звери пугаются, покидают гнезда, молодняк теряет родителей и гибнет.</i></li>
+                    <li><strong>Вопрос:</strong> Почему нельзя мыть автомобили на берегу водоёма?<br>
+                    <i>Ответ: 5 грамм бензина затягивают ядовитой плёнкой 50 квадратных метров водной поверхности.</i></li>
+                    <li><strong>Вопрос:</strong> Какова роль муравейников в лесу?<br>
+                    <i>Ответ: Один большой муравейник охраняет целый гектар леса от насекомых-вредителей.</i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS Скрипты для работы сайта -->
+    <script>
+        // Фильтрация игр
+        function filterGames(category) {
+            const cards = document.querySelectorAll('.game-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Открытие модального окна
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Блокируем скролл фона
+        }
+
+        // Закрытие модального окна
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Возвращаем скролл
+        }
+
+        // Закрытие по клику вне контента
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+    </script>
+</body>
+</html>
